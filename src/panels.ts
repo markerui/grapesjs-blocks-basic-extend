@@ -141,7 +141,7 @@ export default (editor: Editor, opts: Required<PluginOptions>) => {
     // Don't switch when the Layer Manager is on or there is no selected components
     if((!openLayersBtn || !openLayersBtn.get('active')) && editor.getSelected()){
       const openSmBtn = Panels.getButton('views', openStyleManager);
-      openSmBtn?.set('active', true);
+      // openSmBtn?.set('active', true);
     }
   });
 
