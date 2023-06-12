@@ -56,7 +56,6 @@ export default (editor: Editor, opts: Required<PluginOptions>) => {
     run(editor) {
       let { codeEditorHtml } = this as any;
       const container = this.getCodeContainer();
-
       // Init code viewer if not yet instantiated
       if (!codeEditorHtml) {
         const codeViewer = this.createCodeEditor();

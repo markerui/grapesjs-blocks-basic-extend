@@ -3,7 +3,8 @@ import juice from 'juice';
 import loadBlocks from './blocks';
 import loadCommands from './commands';
 import loadPanels from './panels';
-import loadStyles from './styles';
+import loadComponents from './components'
+import { resizer } from './utils';
 
 export interface PluginOptions {
   /**
@@ -17,16 +18,6 @@ export interface PluginOptions {
    * @example (blockId) => blockId === 'quote' ? { attributes: {...} } : {};
    */
   block?: (blockId: string) => ({});
-
-  /**
-   * Custom style for table blocks.
-   */
-  tableStyle?: Record<string, string>;
-
-  /**
-   * Custom style for table cell blocks.
-   */
-  cellStyle?: Record<string, string>;
 
   /**
    * Import command id.
@@ -129,6 +120,20 @@ export interface PluginOptions {
    * @default true
    */
   useCustomTheme?: boolean;
+
+  /**
+   * resizer
+   * @default true
+   */
+  resizer?: Number;
+  // Minimum value the screen can be resized
+  minScreenSize?: Number,
+  // Dampen the drag speed
+  dragDampen?: Number,
+  // Hide if zoom is not 100
+  hideOnZoom?: Number,
+  // defalut iframe src
+  iframeDefalutSrc?: String
 };
 
 export type RequiredPluginOptions = Required<PluginOptions>;
@@ -137,7 +142,7 @@ const plugin: Plugin<PluginOptions> = (editor, opts: Partial<PluginOptions> = {}
   let config = editor.getConfig();
 
   const options: RequiredPluginOptions = {
-    blocks: ['sect100', 'sect50', 'sect30', 'sect37', 'button', 'divider', 'text', 'text-sect', 'image', 'quote', 'link', 'link-block', 'grid-items', 'list-items'],
+    blocks: ['divider',  'text-sect',  'quote', 'link-block', 'iframe'],
     block: () => ({}),
     juiceOpts: {},
     cmdOpenImport: 'gjs-open-import-template',
@@ -151,27 +156,23 @@ const plugin: Plugin<PluginOptions> = (editor, opts: Partial<PluginOptions> = {}
     codeViewerTheme: 'hopscotch',
     importPlaceholder: '',
     inlineCss: true,
-    cellStyle: {
-      padding: '0',
-      margin: '0',
-      'vertical-align': 'top',
-    },
-    tableStyle: {
-      height: '150px',
-      margin: '0 auto 10px auto',
-      padding: '5px 5px 5px 5px',
-      width: '100%'
-    },
     updateStyleManager: true,
     showStylesOnChange: true,
     showBlocksOnLoad: true,
     useCustomTheme: true,
     textCleanCanvas: 'Are you sure you want to clear the canvas?',
+    resizer: 1,
+    minScreenSize: 320,
+    dragDampen: 1,
+    hideOnZoom: 1,
+    iframeDefalutSrc: '',
     ...opts,
   };
 
   // Change some config
   config.devicePreviewMode = true;
+
+  options.resizer && resizer(editor, options);
 
   if (options.useCustomTheme && typeof window !== 'undefined') {
     const primaryColor = '#373d49';
@@ -208,7 +209,7 @@ const plugin: Plugin<PluginOptions> = (editor, opts: Partial<PluginOptions> = {}
   loadCommands(editor, options);
   loadBlocks(editor, options);
   loadPanels(editor, options);
-  loadStyles(editor, options);
+  loadComponents(editor, options);
 };
 
 export default plugin;
