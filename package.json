@@ -1,6 +1,6 @@
 {
   "name": "grapesjs-blocks-basic-extend",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "GrapesJS blocks configuration for the newsletter editor",
   "main": "dist/grapesjs-blocks-basic-extend.js",
   "files": [
