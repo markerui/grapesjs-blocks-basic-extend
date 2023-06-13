@@ -102,8 +102,8 @@ const editor = grapesjs.init({
 Clone the repository
 
 ```sh
-$ git clone https://github.com/grapesjs/preset-newsletter.git
-$ cd preset-newsletter
+$ git clone https://github.com/markerui/grapesjs-blocks-basic-extend
+$ cd grapesjs-blocks-basic-extend
 ```
 
 Install it

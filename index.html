@@ -18,6 +18,8 @@
 
 <body>
   <div id="gjs" style="height:0px; overflow:hidden">
+    <div id="test">test page</div>
+    <style>#test{font-size: 30px; text-align: center;}</style>
   </div>
 
   <script type="text/javascript">
@@ -30,11 +32,45 @@
         plugins: ['grapesjs-blocks-basic-extend', 'grapesjs-component-code-editor'],
         pluginsOpts: {
           'grapesjs-blocks-basic-extend': {
+            inlineCss: false,
             modalLabelImport: 'Paste all your code here below and click import',
             modalLabelExport: 'Copy the code and use it wherever you want',
-            importPlaceholder: '<table class="table"><tr><td class="cell">Hello world!</td></tr></table>',
+            importPlaceholder: '<div>Hello World!</div>',
           }
         }
+      });
+
+      const pn = editor.Panels;
+
+      // Beautify tooltips
+      [
+        ['sw-visibility', 'Show Borders'],
+        ['preview', 'Preview'],
+        ['fullscreen', 'Fullscreen'],
+        ['export-template', 'Export'],
+        ['undo', 'Undo'],
+        ['redo', 'Redo'],
+        ['gjs-open-import-template', 'Import'],
+        ['gjs-toggle-images', 'Toggle images'],
+        ['canvas-clear', 'Clear canvas']
+      ].forEach(function (item) {
+        pn.getButton('options', item[0]).set('attributes', { title: item[1], 'data-tooltip-pos': 'bottom' });
+      });
+
+      var titles = document.querySelectorAll('*[title]');
+      for (var i = 0; i < titles.length; i++) {
+        var el = titles[i];
+        var title = el.getAttribute('title');
+        title = title ? title.trim() : '';
+        if (!title)
+          break;
+        el.setAttribute('data-tooltip', title);
+        el.setAttribute('title', '');
+      }
+
+      // Do stuff on load
+      editor.on('load', function() {
+        pn.getButton('options', 'sw-visibility').set('active', 1);
       });
 
     };
