@@ -3,33 +3,33 @@ export default (editor,  opts) => {
   editor.Commands.add(opts.cmdTglImages, {
     run(editor) {
         const components = editor.getComponents();
-        // this.toggleImages(components);
+        this.toggleImages(components);
     },
 
     stop(editor) {
         const components = editor.getComponents();
-        // this.toggleImages(components, true);
+        this.toggleImages(components, true);
     },
 
-    // toggleImages(components: Components, on: boolean = false) {
-    //     const srcPlh = '##';
+    toggleImages(components, on = false) {
+        const srcPlh = '##';
 
-    //     components.forEach((component) => {
-    //         if (component.get('type') === 'image') {
-    //             const source = component.get('src');
+        components.forEach((component) => {
+            if (component.get('type') === 'image') {
+                const source = component.get('src');
 
-    //             if (on) {
-    //                 if (source === srcPlh) {
-    //                     component.set('src', component.get('src_bkp'));
-    //                 }
-    //             } else if (source !== srcPlh) {
-    //                 component.set('src_bkp', component.get('src'));
-    //                 component.set('src', srcPlh);
-    //             }
-    //         }
+                if (on) {
+                    if (source === srcPlh) {
+                        component.set('src', component.get('src_bkp'));
+                    }
+                } else if (source !== srcPlh) {
+                    component.set('src_bkp', component.get('src'));
+                    component.set('src', srcPlh);
+                }
+            }
 
-    //         this.toggleImages(component.components(), on);
-    //     });
-    // },
+            this.toggleImages(component.components(), on);
+        });
+    },
   });
 };
