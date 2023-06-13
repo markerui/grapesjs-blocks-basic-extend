@@ -1,13 +1,13 @@
 import toggleImagesCommand from './toggleImagesCommand';
 
 describe.skip('toggleImagesCommand test', () => {
-    let grapesjsMock: any;
-    let toggleImagesCommandResult: any;
-    let mockedImageComponent: any;
-    let mockedImagePlaceholderComponent: any;
-    let mockedOtherComponent: any;
-    let mockedComponents: any;
-    let eachComponentsCallback: any;
+    let grapesjsMock;
+    let toggleImagesCommandResult;
+    let mockedImageComponent;
+    let mockedImagePlaceholderComponent;
+    let mockedOtherComponent;
+    let mockedComponents;
+    let eachComponentsCallback;
 
     beforeEach(() => {
         mockedComponents = {

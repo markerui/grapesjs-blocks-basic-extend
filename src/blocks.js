@@ -1,12 +1,10 @@
-import type { Editor, BlockProperties } from 'grapesjs';
-import { PluginOptions } from '.';
 import { iframeCom }  from './consts'
 
-export default function (editor: Editor, opts: Required<PluginOptions>) {
+export default function (editor, opts) {
   const bm = editor.Blocks;
 
-  const addBlock = (id: string, blockDef: BlockProperties) => {
-    opts.blocks.indexOf(id)! >= 0 && editor.Blocks.add(id, {
+  const addBlock = (id, blockDef) => {
+    opts.blocks.indexOf(id) >= 0 && editor.Blocks.add(id, {
       select: true,
       category: 'Basic',
       ...blockDef,

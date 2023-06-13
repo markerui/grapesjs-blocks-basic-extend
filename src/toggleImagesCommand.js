@@ -1,7 +1,5 @@
-import type { Editor, Components } from 'grapesjs';
-import { PluginOptions } from '.';
 
-export default (editor: Editor,  opts: Required<PluginOptions>) => {
+export default (editor,  opts) => {
   editor.Commands.add(opts.cmdTglImages, {
     run(editor) {
         const components = editor.getComponents();

@@ -1,8 +1,6 @@
-import type { Editor } from 'grapesjs';
-import { PluginOptions } from '.';
 import { cmdClear, cmdDeviceDesktop, cmdDeviceMobile, cmdDeviceTablet } from './consts';
 
-export default (editor: Editor, opts: Required<PluginOptions>) => {
+export default (editor, opts) => {
   const { Panels } = editor;
   const { cmdOpenImport, cmdTglImages } = opts;
   const openExport = 'export-template';

@@ -1,26 +1,17 @@
-import type { Editor } from 'grapesjs';
-import juice from 'juice';
-import { PluginOptions } from '.';
 
-export default (editor: Editor, opts: Required<PluginOptions>) => {
+export default (editor, opts) => {
   const cmdm = editor.Commands;
   const pfx = editor.getConfig().stylePrefix;
 
-  cmdm.add(opts.cmdInlineHtml, {
-    run(editor, s, opts = {}) {
-      const tmpl = editor.getHtml() + `<style>${editor.getCss()}</style>`;
-      return juice(tmpl, {...opts.juiceOpts, ...opts});
-    }
-  });
+  cmdm.add(opts.cmdOpenImport, {
+    containerEl: null,
+    codeEditorHtml: null,
 
-  cmdm.add('export-template', {
-    containerEl: null as HTMLDivElement | null,
-    codeEditorHtml: null as HTMLDivElement | null,
-
-    createCodeViewer(): any {
+    createCodeViewer() {
       return editor.CodeManager.createViewer({
         codeName: 'htmlmixed',
         theme: opts.codeViewerTheme,
+        readOnly: false,
       });
     },
 
@@ -30,18 +21,18 @@ export default (editor: Editor, opts: Required<PluginOptions>) => {
 
       el.style.flex = '1 0 auto';
       el.style.boxSizing = 'border-box';
-      el.className = `${pfx}export-code`;
+      el.className = `${pfx}import-code`;
       el.appendChild(codeEditor.getElement());
 
       return { codeEditor, el };
     },
 
-    getCodeContainer(): HTMLDivElement {
+    getCodeContainer() {
       let containerEl = this.containerEl;
 
       if (!containerEl) {
         containerEl = document.createElement('div');
-        containerEl.className = `${pfx}export-container`;
+        containerEl.className = `${pfx}import-container`;
         containerEl.style.display = 'flex';
         containerEl.style.gap = '5px';
         containerEl.style.flexDirection = 'column';
@@ -52,37 +43,50 @@ export default (editor: Editor, opts: Required<PluginOptions>) => {
       return containerEl;
     },
 
-
     run(editor) {
-      let { codeEditorHtml } = this as any;
       const container = this.getCodeContainer();
+      let { codeEditorHtml } = this;
+
       // Init code viewer if not yet instantiated
       if (!codeEditorHtml) {
         const codeViewer = this.createCodeEditor();
+        const btnImp = document.createElement('button');
         codeEditorHtml = codeViewer.codeEditor;
         this.codeEditorHtml = codeEditorHtml;
 
-        if(opts.modalLabelExport){
+        if(opts.modalLabelImport){
           let labelEl = document.createElement('div');
-          labelEl.className = `${pfx}export-label`;
-          labelEl.innerHTML = opts.modalLabelExport;
+          labelEl.className = `${pfx}import-label`;
+          labelEl.innerHTML = opts.modalLabelImport;
           container.appendChild(labelEl);
         }
 
+        // Init import button
+        btnImp.innerHTML = opts.modalBtnImport;
+        btnImp.type = 'button';
+        btnImp.className = `${pfx}btn-prim ${pfx}btn-import`;
+        btnImp.style.alignSelf = 'flex-start';
+        btnImp.onclick = () => {
+          const code = codeViewer.codeEditor.editor.getValue();
+          editor.Components.clear();
+          editor.Css.clear();
+          editor.setComponents(code);
+          editor.Modal.close();
+        };
+
         container.appendChild(codeViewer.el);
+        container.appendChild(btnImp);
       }
 
       editor.Modal.open({
-        title: opts.modalTitleExport,
+        title: opts.modalTitleImport,
         content: container,
       });
 
-
       if (codeEditorHtml) {
-        const tmpl = `${editor.getHtml()}<style>${editor.getCss()}</style>`;
-        codeEditorHtml.setContent(opts.inlineCss ? juice(tmpl, opts.juiceOpts) : tmpl);
+        codeEditorHtml.setContent(opts.importPlaceholder || '');
         codeEditorHtml.editor.refresh();
       }
     },
-  })
-}
+  });
+};
