@@ -14,8 +14,8 @@ export default (editor, opts = {}) => {
           src: iframeDefalutSrc
         },
         style: {
-          'min-height': '500px',
-          'min-width': '100%'
+          'height': '500px',
+          'width': '100%'
         }
       }
     }

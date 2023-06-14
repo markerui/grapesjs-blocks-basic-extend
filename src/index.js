@@ -3,9 +3,6 @@ import loadBlocks from './blocks';
 import loadCommands from './commands';
 import loadPanels from './panels';
 import loadComponents from './components'
-import { resizer } from './utils';
-
-
 
 const plugin = (editor, opts = {}) => {
   let config = editor.getConfig();
@@ -30,16 +27,12 @@ const plugin = (editor, opts = {}) => {
     showBlocksOnLoad: true,
     useCustomTheme: true,
     textCleanCanvas: 'Are you sure you want to clear the canvas?',
-    resizer: 1,
-    minScreenSize: 320,
-    dragDampen: 1,
-    hideOnZoom: 1,
     iframeDefalutSrc: '',
     ...opts,
   };
 
   // Change some config
-  config.devicePreviewMode = true;
+  // config.devicePreviewMode = true;
 
 
   if (options.useCustomTheme && typeof window !== 'undefined') {
@@ -73,8 +66,6 @@ const plugin = (editor, opts = {}) => {
     style.innerText = cssString;
     document.head.appendChild(style);
   }
-
-  options.resizer && resizer(editor, options);
 
   loadCommands(editor, options);
   loadBlocks(editor, options);

@@ -77,7 +77,7 @@ export default (editor, opts) => {
 
 
       if (codeEditorHtml) {
-        const tmpl = `${editor.getHtml()}<style>${editor.getCss()}</style>`;
+        const tmpl = `${editor.getHtml()}<style>${editor.getCss()}</style><script>${editor.getJs()}</script>`;
         codeEditorHtml.setContent(opts.inlineCss ? juice(tmpl, opts.juiceOpts) : tmpl);
         codeEditorHtml.editor.refresh();
       }
