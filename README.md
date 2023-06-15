@@ -56,7 +56,7 @@ Directly in the browser
 ```html
 <link href="path/to/grapes.min.css" rel="stylesheet"/>
 <script src="path/to/grapes.min.js"></script>
-<script src="path/to/grapesjs-blocks-basic-extend.min.js"></script>
+<script src="path/to/grapesjs-blocks-basic-extend/index.js"></script>
 
 <div id="gjs"></div>
 
