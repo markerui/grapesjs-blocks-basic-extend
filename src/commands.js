@@ -1,5 +1,5 @@
 import { cmdClear, cmdDeviceDesktop, cmdDeviceMobile, cmdDeviceTablet } from './consts';
-import openExportCommand from './openExportCommand';
+// import openExportCommand from './openExportCommand';
 import openImportCommand from './openImportCommand';
 import tglImagesCommand from './toggleImagesCommand';
 
@@ -8,7 +8,7 @@ export default (editor, opts) => {
     const txtConfirm = opts.textCleanCanvas;
 
     openImportCommand(editor, opts);
-    openExportCommand(editor, opts);
+    // openExportCommand(editor, opts);
     tglImagesCommand(editor, opts);
 
     Commands.add(cmdDeviceDesktop, {

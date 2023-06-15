@@ -1,6 +1,6 @@
 {
   "name": "grapesjs-blocks-basic-extend",
-  "version": "1.0.16",
+  "version": "1.0.18",
   "description": "GrapesJS blocks configuration for the newsletter editor",
   "main": "dist/grapesjs-blocks-basic-extend.min.js",
   "files": [
@@ -14,7 +14,6 @@
     "v:patch": "npm version --no-git-tag-version patch",
     "start": "NODE_OPTIONS=--openssl-legacy-provider grapesjs-cli serve",
     "build": "NODE_OPTIONS=--openssl-legacy-provider grapesjs-cli build",
-    "build:css": "sass src/styles.scss dist/grapesjs-blocks-basic-extend.min.css --style compressed",
     "test": "jest"
   },
   "keywords": [

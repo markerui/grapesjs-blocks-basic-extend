@@ -144,10 +144,10 @@ export default (editor, opts) => {
   });
 
   // Do stuff on load
-  editor.onReady(() => {
-    if (opts.showBlocksOnLoad) {
-      const openBlocksBtn = Panels.getButton('views', openBlocks);
-      openBlocksBtn?.set('active', true);
-    }
-  });
+  // editor.onReady(() => {
+  //   if (opts.showBlocksOnLoad) {
+  //     const openBlocksBtn = Panels.getButton('views', openBlocks);
+  //     openBlocksBtn?.set('active', true);
+  //   }
+  // });
 };

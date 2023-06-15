@@ -57,7 +57,6 @@ Directly in the browser
 <link href="path/to/grapes.min.css" rel="stylesheet"/>
 <script src="path/to/grapes.min.js"></script>
 <script src="path/to/grapesjs-blocks-basic-extend.min.js"></script>
-<link href="path/to/grapesjs-blocks-basic-extend.min.css" rel="stylesheet"/>
 
 <div id="gjs"></div>
 
@@ -79,7 +78,6 @@ Modern javascript
 ```js
 import grapesjs from 'grapesjs';
 import plugin from 'grapesjs-blocks-basic-extend';
-import 'grapesjs-blocks-basic-extend/dist/grapesjs-blocks-basic-extend.min.css'
 
 const editor = grapesjs.init({
   container : '#gjs',
